@@ -196,7 +196,7 @@ class MapOperator : public ObservableOperator<U, D> {
       try {
         this->observerOnNext(observable_->function_(std::move(value)));
       } catch (const std::exception& exn) {
-        folly::exception_wrapper ew{std::current_exception(), exn};
+        folly::exception_wrapper ew{exn};
         this->terminateErr(std::move(ew));
       }
     }

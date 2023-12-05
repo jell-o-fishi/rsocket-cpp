@@ -197,7 +197,7 @@ class MapOperator : public SingleOperator<U, D> {
         auto map_operator = this->getOperator();
         this->observerOnSuccess(map_operator->function_(std::move(value)));
       } catch (const std::exception& exn) {
-        folly::exception_wrapper ew{std::current_exception(), exn};
+        folly::exception_wrapper ew{exn};
         this->observerOnError(std::move(ew));
       }
     }

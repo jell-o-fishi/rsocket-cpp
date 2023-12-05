@@ -301,7 +301,7 @@ class Base : public LambdaSubscriber<T> {
       next_(std::move(value));
     } catch (const std::exception& exn) {
       this->cancel();
-      auto ew = folly::exception_wrapper{std::current_exception(), exn};
+      auto ew = folly::exception_wrapper{exn};
       LOG(ERROR) << "'next' method should not throw: " << ew.what();
       onErrorImpl(ew);
       return;

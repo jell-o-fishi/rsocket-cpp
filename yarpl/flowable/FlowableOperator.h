@@ -178,7 +178,7 @@ class MapOperator : public FlowableOperator<U, D> {
           this->subscriberOnNext(flowable->function_(std::move(value)));
         }
       } catch (const std::exception& exn) {
-        folly::exception_wrapper ew{std::current_exception(), exn};
+        folly::exception_wrapper ew{exn};
         this->terminateErr(std::move(ew));
       }
     }
@@ -190,7 +190,7 @@ class MapOperator : public FlowableOperator<U, D> {
         }
       } catch (const std::exception& exn) {
         this->terminateErr(
-            folly::exception_wrapper{std::current_exception(), exn});
+            folly::exception_wrapper{exn});
       }
     }
 
@@ -570,7 +570,7 @@ class FlatMapOperator : public FlowableOperator<T, R> {
       try {
         mappedStream = flowable_->function_(std::move(value));
       } catch (const std::exception& exn) {
-        folly::exception_wrapper ew{std::current_exception(), exn};
+        folly::exception_wrapper ew{exn};
         {
           std::lock_guard<std::mutex> g(onErrorExGuard_);
           onErrorEx_ = ew;

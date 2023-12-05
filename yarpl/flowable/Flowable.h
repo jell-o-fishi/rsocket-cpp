@@ -494,7 +494,7 @@ std::shared_ptr<Flowable<T>> Flowable<T>::fromGenerator(
       }
     } catch (const std::exception& ex) {
       subscriber.onError(
-          folly::exception_wrapper(std::current_exception(), ex));
+          folly::exception_wrapper(ex));
     } catch (...) {
       subscriber.onError(std::runtime_error(
           "Flowable::fromGenerator() threw from Subscriber:onNext()"));
